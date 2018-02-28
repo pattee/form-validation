@@ -1,0 +1,10 @@
+.has-error input {
+  outline-color: -webkit-focus-ring-color;
+  outline-style: auto;
+  outline-color: red;
+  outline-width: 5px;
+}
+
+.form-group {
+  margin: 15px;
+}
