@@ -17,13 +17,19 @@ class App extends Component {
     this.handleUserInput = this.handleUserInput.bind(this);
     this.validateField = this.validateField.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.onBlurValidate = this.onBlurValidate.bind(this);
   }
   handleUserInput(event) {
     const name = event.target.name;
     const value = event.target.value;
     this.setState({[name]: value}, () => {
-      this.validateField(name, value);
+      // this.validateField(name, value);
     });
+  }
+  onBlurValidate(event) {
+    const validateName = event.target.name;
+    const validateValue = event.target.value;
+    this.validateField(validateName, validateValue);
   }
   validateField(fieldName, value) {
     let fieldValidationErrors = this.state.formErrors;
@@ -59,11 +65,22 @@ class App extends Component {
         <form className="form">
           <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
             <label htmlFor="email">Email address</label>
-            <input value={this.state.email} type="email" name="email" onChange={(event) => this.handleUserInput(event)} />
+            <input
+              value={this.state.email}
+              type="email" name="email"
+              onChange={(event) => this.handleUserInput(event)}
+              onBlur={this.onBlurValidate}
+            />
           </div>
           <div className={`form-group ${this.errorClass(this.state.formErrors.password)}`}>
             <label htmlFor="password">Password</label>
-            <input value={this.state.password} type="password" name="password" onChange={(event) => this.handleUserInput(event)} />
+            <input
+              value={this.state.password}
+              type="password"
+              name="password"
+              onChange={(event) => this.handleUserInput(event)}
+              onBlur={this.onBlurValidate}
+            />
           </div>
           <button type="submit" disabled={!this.state.formValid}>Sign Up</button>
         </form>
